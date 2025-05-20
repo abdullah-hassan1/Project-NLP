@@ -1,12 +1,16 @@
-%%{init: {'theme': 'base', 'themeVariables': { 
-    'primaryColor': '#2563eb', 
-    'primaryBorderColor': '#1d4ed8', 
-    'lineColor': '#64748b', 
-    'textColor': '#1e293b', 
-    'fontFamily': 'Inter', 
-    'fontSize': '14px'
-}}}%%
-
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#3b82f6',
+    'primaryBorderColor': '#1e40af',
+    'lineColor': '#64748b',
+    'textColor': '#0f172a',
+    'fontFamily': 'Inter',
+    'fontSize': '14px',
+    'secondaryColor': '#f1f5f9',
+    'tertiaryColor': '#e2e8f0'
+  }
+}}%%
 flowchart TB
     A[User opens the article detail page] --> B[Page finishes loading]
     B --> C[Check if article data exists in browser]
@@ -31,8 +35,7 @@ flowchart TB
 
     O --> P[User can now read the article]
 
-    %% Optional Styles
-    style A fill:#f8fafc,stroke:#2563eb,stroke-width:2px
+    %% Updated Styles
+    style A fill:#f8fafc,stroke:#3b82f6,stroke-width:2px
     style D fill:#fecaca,stroke:#ef4444,color:#991b1b
     style E fill:#f1f5f9,stroke:#94a3b8
-   
