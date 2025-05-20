@@ -1,0 +1,24 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#2563eb', 
+    'primaryBorderColor': '#1d4ed8', 
+    'lineColor': '#64748b', 
+    'textColor': '#1e293b', 
+    'fontFamily': 'Inter', 
+    'fontSize': '14px'
+}}}%%
+
+flowchart TD
+    A[User sends GET request to /api/tribune/latest] --> B[Flask app receives the request]
+    B --> C[Get latest article links from tribune.com.pk]
+    C --> D[Shuffle the list to randomize articles]
+    D --> E[Pick top N links from the list]
+    E --> F[For each article: fetch and parse HTML]
+    F --> G[Clean article content and extract text]
+    G --> H[Summarize text using TF-IDF method]
+    H --> I[Create article object: title, url, summary, etc.]
+    I --> J[Repeat for each selected article]
+    J --> K[Return JSON response with article summaries]
+
+    %% Optional styling
+    style A fill:#f0f9ff,stroke:#0ea5e9,stroke-width:2px
+    style . fill:#e2e8f0,stroke:#94a3b8

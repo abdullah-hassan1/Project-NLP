@@ -1,0 +1,26 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#2563eb', 
+    'primaryBorderColor': '#1d4ed8', 
+    'lineColor': '#64748b', 
+    'textColor': '#1e293b', 
+    'fontFamily': 'Inter', 
+    'fontSize': '14px'
+}}}%%
+
+flowchart TB
+    Start["Start: Provide input text"] --> Split["Use NLTK to split the text into individual sentences"]
+
+    Split --> Preprocess["Preprocess each sentence:<br/>- Lowercase text<br/>- Remove punctuation<br/>- Remove stopwords"]
+
+    Preprocess --> TFIDF["Calculate TF-IDF score for each sentence<br/>using sklearn TfidfVectorizer"]
+
+    TFIDF --> Score["Get importance score:<br/>Sum all TF-IDF values for each sentence"]
+
+    Score --> Rank["Rank sentences:<br/>Higher score = more important"]
+
+    Rank --> Select["Pick top N sentences<br/>to form the summary"]
+
+    Select --> Output["Return summary to user"]
+
+    style Start fill:#f8fafc,stroke:#2563eb,stroke-width:2px
+    style . fill:#cbd5e1,stroke:#94a3b8

@@ -1,0 +1,87 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#3b82f6',            // Blue-500 for primary elements
+    'primaryBorderColor': '#1e40af',      // Blue-900 for strong borders
+    'lineColor': '#64748b',               // Slate-500 for connector lines
+    'textColor': '#0f172a',               // Slate-900 for strong readable text
+    'fontFamily': 'Inter',
+    'fontSize': '14px',
+    'secondaryColor': '#f1f5f9',          // Slate-100
+    'tertiaryColor': '#e2e8f0'            // Slate-200 for background
+  }
+}}%%
+flowchart TB
+    A[User Launches SumNews] --> B[Page Content Fully Loaded]
+    B --> C[Prepare the App for Use]
+    C --> D[Set Filter to 'All', Start with No Articles]
+    D --> E[Start Fetching News Articles]
+    
+    subgraph "News Sources (Load in Parallel)"
+        direction TB
+        E --> F[[Get Latest from Dawn]]
+        E --> G[[Get Latest from The News]]
+        E --> H[[Get Latest from Tribune]]
+        
+        F --> I{Did Dawn Load Successfully?}
+        G --> J{Did The News Load Successfully?}
+        H --> K{Did Tribune Load Successfully?}
+        
+        I -->|Yes| L[Clean and Tag Dawn Articles]
+        I -->|No| M[Log: Dawn Failed]
+        J -->|Yes| N[Clean and Tag The News Articles]
+        J -->|No| O[Log: The News Failed]
+        K -->|Yes| P[Clean and Tag Tribune Articles]
+        K -->|No| Q[Log: Tribune Failed]
+    end
+    
+    subgraph "Process and Prepare News"
+        direction LR
+        L --> R[Combine All Articles]
+        N --> R
+        P --> R
+        R --> S[Sort Articles - Newest First]
+        S --> T[Trim Long Summaries]
+        T --> U[Save Articles for Display]
+    end
+    
+    U --> V[Display Articles on the Page]
+    
+    subgraph "User Actions"
+        direction LR
+        AD[User Clicks] --> AE[Changes Category Filter]
+        AD --> AF[Clicks Refresh]
+        AD --> AG[Selects an Article]
+        
+        AE --> AH[Update Filter and Refresh Page]
+        AF --> AI[Reload News from All Sources]
+        AG --> AJ[Remember Article & Open in New Tab]
+        
+        AH --> V
+        AI --> E
+        AJ --> AK[Open Article Detail View]
+    end
+    
+    subgraph "When Things Go Wrong"
+        direction LR
+        M --> AL[Show Message: Dawn Not Available]
+        O --> AM[Show Message: The News Failed]
+        Q --> AN[Show Message: Tribune Down]
+        AL --> AO[Retry Logic – Up to 3 Attempts]
+        AM --> AO
+        AN --> AO
+        AO -->|Success| E
+        AO -->|Fail| AP[Hide Source and Show Maintenance Notice]
+    end
+    
+    style A fill:#f8fafc,stroke:#3b82f6,stroke-width:2px
+    style F fill:#60a5fa,stroke:#1e40af,color:white
+    style G fill:#f87171,stroke:#991b1b,color:white
+    style H fill:#34d399,stroke:#065f46,color:white
+    style U fill:#cbd5e1,stroke:#94a3b8
+    style V fill:#f1f5f9,stroke:#94a3b8
+    style AP fill:#fecaca,stroke:#ef4444
+    style AK fill:#e2e8f0,stroke:#cbd5e1
+    style AJ fill:#94a3b8,stroke:#64748b,color:white
+    classDef codeStyle fill:#f1f5f9,stroke:#cbd5e1,stroke-width:1px
+    class D,AO codeStyle

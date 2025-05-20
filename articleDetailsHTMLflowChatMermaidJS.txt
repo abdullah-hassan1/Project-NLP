@@ -1,0 +1,38 @@
+%%{init: {'theme': 'base', 'themeVariables': { 
+    'primaryColor': '#2563eb', 
+    'primaryBorderColor': '#1d4ed8', 
+    'lineColor': '#64748b', 
+    'textColor': '#1e293b', 
+    'fontFamily': 'Inter', 
+    'fontSize': '14px'
+}}}%%
+
+flowchart TB
+    A[User opens the article detail page] --> B[Page finishes loading]
+    B --> C[Check if article data exists in browser]
+
+    C -->|No article found| D[Show 'Article Not Found' message]
+    D --> E[Show 'Back to News' button]
+
+    C -->|Article found| F[Identify the article's source]
+    F --> G[Format the published date]
+    G --> H[Build the article view]
+
+    subgraph "Page Content Display"
+        direction TB
+        H --> I[Display source label and title]
+        I --> J[Display date and word count]
+        J --> K[Show 'Read Original Article' button at top]
+        K --> L[Show image if available]
+        L --> M[Show summary box]
+        M --> N[Display full content or description]
+        N --> O[Show 'Continue Reading' button at bottom]
+    end
+
+    O --> P[User can now read the article]
+
+    %% Optional Styles
+    style A fill:#f8fafc,stroke:#2563eb,stroke-width:2px
+    style D fill:#fecaca,stroke:#ef4444,color:#991b1b
+    style E fill:#f1f5f9,stroke:#94a3b8
+   
