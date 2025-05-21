@@ -1,4 +1,4 @@
-Make sure you're in the root directory of the project before running the APIs(do not run from apis folder run from Project-NLP folder). Use the following commands:
+To run the APIs correctly, make sure you are in the root directory of the project (Project-NLP), not inside the apis folder. Then use these commands:
 # Run Dawn's News API
 python -m apis.dawns_news_api
 
