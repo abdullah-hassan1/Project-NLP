@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import random
-from summarization import summarize_tfidf
+from algorithm.summarization import summarize_tfidf
 
 # Flask app setup
 app = Flask(__name__)
