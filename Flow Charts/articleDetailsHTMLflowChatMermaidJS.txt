@@ -1,41 +1,46 @@
-%%{init: {
-  'theme': 'base',
-  'themeVariables': {
-    'primaryColor': '#3b82f6',
-    'primaryBorderColor': '#1e40af',
-    'lineColor': '#64748b',
-    'textColor': '#0f172a',
-    'fontFamily': 'Inter',
-    'fontSize': '14px',
-    'secondaryColor': '#f1f5f9',
-    'tertiaryColor': '#e2e8f0'
-  }
-}}%%
-flowchart TB
-    A[User opens the article detail page] --> B[Page finishes loading]
-    B --> C[Check if article data exists in browser]
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultTextAlignment center
+skinparam node {
+    BackgroundColor #f8fafc
+    BorderColor #3b82f6
+    FontName Inter
+    FontSize 14
+    FontColor #0f172a
+}
 
-    C -->|No article found| D[Show 'Article Not Found' message]
-    D --> E[Show 'Back to News' button]
+start
 
-    C -->|Article found| F[Identify the article's source]
-    F --> G[Format the published date]
-    G --> H[Build the article view]
+:User opens the article detail page;
+:Page finishes loading;
+:Check if article data exists in browser;
 
-    subgraph "Page Content Display"
-        direction TB
-        H --> I[Display source label and title]
-        I --> J[Display date and word count]
-        J --> K[Show 'Read Original Article' button at top]
-        K --> L[Show image if available]
-        L --> M[Show summary box]
-        M --> N[Display full content or description]
-        N --> O[Show 'Continue Reading' button at bottom]
-    end
+if ("Article found?") then ([No])
+    note right
+        Article not found
+    end note
+    :Show 'Article Not Found' message;
+    note right
+        Error handling
+    end note
+    :Show 'Back to News' button;
+    stop
+else ([Yes])
+    :Identify the article's source;
+    :Format the published date;
+    :Build the article view;
 
-    O --> P[User can now read the article]
+    partition "Page Content Display" {
+        :Display source label and title;
+        :Display date and word count;
+        :Show 'Read Original Article' button at top;
+        :Show image if available;
+        :Show summary box;
+        :Display full content or description;
+        :Show 'Continue Reading' button at bottom;
+    }
 
-    %% Updated Styles
-    style A fill:#f8fafc,stroke:#3b82f6,stroke-width:2px
-    style D fill:#fecaca,stroke:#ef4444,color:#991b1b
-    style E fill:#f1f5f9,stroke:#94a3b8
+    :User can now read the article;
+    stop
+endif
+@enduml

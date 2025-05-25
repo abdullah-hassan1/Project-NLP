@@ -1,23 +1,37 @@
-%%{init: {'theme': 'base', 'themeVariables': { 
-    'primaryColor': '#2563eb', 
-    'primaryBorderColor': '#1d4ed8', 
-    'lineColor': '#64748b', 
-    'textColor': '#1e293b', 
-    'fontFamily': 'Inter', 
-    'fontSize': '14px'
-}}}%%
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam activity {
+    FontName Inter
+    FontSize 14
+    FontColor #1e293b
+    BackgroundColor #f8fafc
+    BorderColor #2563eb
+}
 
-flowchart TD
-    A[User sends GET request to /api/dawn/latest] --> B[Flask app receives the request]
-    B --> C[Get article links from Dawn.com homepage]
-    C --> D[Shuffle the list of links to randomize]
-    D --> E[Pick top N links]
-    E --> F[For each article:\\n- Scrape title and content\\n- Extract clean paragraphs]
-    F --> G[Summarize content using TF-IDF]
-    G --> H[Create article info:\\nTitle, URL, Text, Summary, Word Count, Date]
-    H --> I[Repeat for each article]
-    I --> J[Return JSON response with all summaries]
+start
 
-    %% Styling
-    style A fill:#f8fafc,stroke:#2563eb,stroke-width:2px
-    style . fill:#cbd5e1,stroke:#94a3b8
+:User sends GET request to /api/dawn/latest;
+:Flask app receives the request;
+:Get article links from Dawn.com homepage;
+:Shuffle the list of links to randomize;
+:Pick top N links;
+
+repeat
+    :Scrape title and content;
+    :Extract clean paragraphs;
+    :Summarize content using TF-IDF;
+    :Create article info:
+     - Title
+     - URL
+     - Text
+     - Summary
+     - Word Count
+     - Date;
+repeat while (More articles?)
+
+:Return JSON response with all summaries;
+
+stop
+@enduml

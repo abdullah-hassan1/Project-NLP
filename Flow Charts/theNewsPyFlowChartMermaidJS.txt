@@ -1,24 +1,38 @@
-%%{init: {'theme': 'base', 'themeVariables': { 
-    'primaryColor': '#2563eb', 
-    'primaryBorderColor': '#1d4ed8', 
-    'lineColor': '#64748b', 
-    'textColor': '#1e293b', 
-    'fontFamily': 'Inter', 
-    'fontSize': '14px'
-}}}%%
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultTextAlignment center
+skinparam shadowing false
+skinparam activity {
+    FontName Inter
+    FontSize 14
+    FontColor #1e293b
+    BackgroundColor #f8fafc
+    BorderColor #2563eb
+}
 
-flowchart TD
-    A[User sends GET request to /api/thenews/latest] --> B[Flask app receives the request]
-    B --> C[Get latest article links from thenews.com.pk]
-    C --> D[Shuffle the list to randomize articles]
-    D --> E[Pick top N links from the list]
-    E --> F[For each article: scrape HTML and extract content]
-    F --> G[Clean text: remove ads, tags, unrelated sections]
-    G --> H[Summarize content using TF-IDF]
-    H --> I[Create structured info: title, url, summary, etc.]
-    I --> J[Repeat for all articles]
-    J --> K[Return JSON response with summaries]
+start
 
-    %% Styling
-    style A fill:#f8fafc,stroke:#2563eb,stroke-width:2px
-    style . fill:#cbd5e1,stroke:#94a3b8
+:User sends GET request to /api/thenews/latest;
+:Flask app receives the request;
+:Get latest article links from thenews.com.pk;
+:Shuffle the list to randomize articles;
+:Pick top N links from the list;
+
+repeat
+    :Scrape HTML and extract content;
+    :Clean text:
+     - Remove ads
+     - Remove tags
+     - Remove unrelated sections;
+    :Summarize content using TF-IDF;
+    :Create structured info:
+     - title
+     - url
+     - summary
+     - etc.;
+repeat while (More articles?)
+
+:Return JSON response with summaries;
+
+stop
+@enduml

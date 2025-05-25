@@ -1,801 +1,106 @@
-
-   
- 
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SumNews - Stay Informed</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Global Styles */
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #e11d48;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #94a3b8;
-            --dark-gray: #64748b;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo i {
-            font-size: 32px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-        
-        nav ul li a {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary);
-        }
-        
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s;
-        }
-        
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 80px 0;
-            margin-bottom: 40px;
-        }
-        
-        .hero-content {
-            max-width: 600px;
-        }
-        
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        /* Main Content Styles */
-        main {
-            flex: 1;
-            padding: 40px 0;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--dark);
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 4px;
-            bottom: -10px;
-            left: 0;
-            background-color: var(--primary);
-        }
-        
-        .view-all {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .news-article {
-            background-color: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .news-article:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .article-content {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .source-label {
-            display: inline-block;
-            background-color: var(--dark-gray);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            align-self: flex-start;
-        }
-        
-        .source-dawn {
-            background-color: #3b82f6;
-        }
-        
-        .source-thenews {
-            background-color: #ef4444;
-        }
-        
-        .source-tribune {
-            background-color: #10b981;
-        }
-        
-        .news-heading {
-            color: var(--dark);
-            font-size: 20px;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        
-        .news-summary {
-            color: var(--dark-gray);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-        
-        .article-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-        
-        .publish-date {
-            font-size: 14px;
-            color: var(--gray);
-        }
-        
-        .read-more {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .refresh-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        /* Loading Spinner */
-        .spinner {
-            display: none;
-            width: 40px;
-            height: 40px;
-            margin: 30px auto;
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 4px solid var(--primary);
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Footer Styles */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 3px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--primary);
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: background-color 0.3s;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--primary);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray);
-            font-size: 14px;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero {
-                text-align: center;
-                padding: 60px 0;
-            }
-            
-            .hero-content {
-                margin: 0 auto;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/indexStyle.css" />
+  </head>
+  <body>
     <!-- Header Section -->
     <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-newspaper"></i>
-                <span>SumNews</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#" id="homeLink">Home</a></li>
-                    <li><a href="#" id="dawnLink">Dawn News</a></li>
-                    <li><a href="#" id="tribuneLink">Tribune News</a></li>
-                    <li><a href="#" id="thenewsLink">News International</a></li>
-                </ul>
-            </nav>
+      <div class="container header-content">
+        <div class="logo">
+          <i class="fas fa-newspaper"></i>
+          <span>SumNews</span>
         </div>
+        <nav>
+          <ul>
+            <li><a href="#" id="homeLink">Home</a></li>
+            <li><a href="#" id="dawnLink">Dawn News</a></li>
+            <li><a href="#" id="tribuneLink">Tribune News</a></li>
+            <li><a href="#" id="thenewsLink">News International</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
-    
+
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Stay Informed with the Latest News</h1>
-                <p>Get concise summaries of top news stories from multiple sources.</p>
-                <button class="btn btn-primary" id="exploreBtn">Explore Latest Stories</button>
-            </div>
+      <div class="container">
+        <div class="hero-content">
+          <h1>Stay Informed with the Latest News</h1>
+          <p>
+            Get concise summaries of top news stories from multiple sources.
+          </p>
+          <button class="btn btn-primary" id="exploreBtn">
+            Explore Latest Stories
+          </button>
         </div>
+      </div>
     </section>
-    
+
     <!-- Main Content Section -->
     <main>
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" id="sectionTitle">Top Stories</h2>
-                <div class="refresh-container">
-                    <button class="btn btn-primary" id="refreshBtn">
-                        <i class="fas fa-sync-alt"></i> Refresh News
-                    </button>
-                </div>
-            </div>
-            
-            <div class="spinner" id="loadingSpinner"></div>
-            
-            <div class="news-grid" id="newsContainer">
-                <!-- News articles will be loaded here dynamically -->
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="sectionTitle">Top Stories</h2>
+          <div class="refresh-container">
+            <button class="btn btn-primary" id="refreshBtn">
+              <i class="fas fa-sync-alt"></i> Refresh News
+            </button>
+          </div>
         </div>
+
+        <div class="spinner" id="loadingSpinner"></div>
+
+        <div class="news-grid" id="newsContainer">
+          <!-- News articles will be loaded here dynamically -->
+        </div>
+      </div>
     </main>
-    
+
     <!-- Footer Section -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>SumNews</h3>
-                    <p>Your source for concise news summaries from top publications.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" id="footerHomeLink">Home</a></li>
-                        <li><a href="#" id="footerDawnLink">Dawn News</a></li>
-                        <li><a href="#" id="footerTribuneLink">Tribune News</a></li>
-                        <li><a href="#" id="footerThenewsLink">News International</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact</h3>
-                    <ul class="footer-links">
-                        <li><a href="mailto:contact@sumnews.com">hi@sumnews.com</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>SumNews</h3>
+            <p>Your source for concise news summaries from top publications.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 SumNews. All rights reserved.</p>
-            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#" id="footerHomeLink">Home</a></li>
+              <li><a href="#" id="footerDawnLink">Dawn News</a></li>
+              <li><a href="#" id="footerTribuneLink">Tribune News</a></li>
+              <li><a href="#" id="footerThenewsLink">News International</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact</h3>
+            <ul class="footer-links">
+              <li><a href="mailto:contact@sumnews.com">hi@sumnews.com</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="copyright">
+          <p>&copy; 2025 SumNews. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
-    
-    <script>// API endpoints
-        const API_ENDPOINTS = {
-            dawn: 'http://localhost:5002/api/dawn/latest?limit=10',
-            thenews: 'http://localhost:5003/api/thenews/latest?limit=10',
-            tribune: 'http://localhost:5001/api/tribune/latest?limit=10'
-        };
-        
-        // DOM elements
-        const newsContainer = document.getElementById('newsContainer');
-        const refreshBtn = document.getElementById('refreshBtn');
-        const exploreBtn = document.getElementById('exploreBtn');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        const sectionTitle = document.getElementById('sectionTitle');
-        
-        // Navigation links
-        const homeLink = document.getElementById('homeLink');
-        const dawnLink = document.getElementById('dawnLink');
-        const tribuneLink = document.getElementById('tribuneLink');
-        const thenewsLink = document.getElementById('thenewsLink');
-        
-        // Footer links
-        const footerHomeLink = document.getElementById('footerHomeLink');
-        const footerDawnLink = document.getElementById('footerDawnLink');
-        const footerTribuneLink = document.getElementById('footerTribuneLink');
-        const footerThenewsLink = document.getElementById('footerThenewsLink');
-        
-        // Current state
-        let currentFilter = 'all';
-        let allArticles = [];
-        
-        // Function to handle article clicks
-        function handleArticleClick(article) {
-            localStorage.setItem('currentArticle', JSON.stringify(article));
-            window.open('article-detail.html', '_blank');
-        }
-        
-        // Fetch news from all sources
-        async function fetchAllNews() {
-            try {
-                loadingSpinner.style.display = 'block';
-                newsContainer.innerHTML = '';
-                
-                if (allArticles.length === 0 || currentFilter === 'refresh') {
-                    const [dawnResponse, thenewsResponse, tribuneResponse] = await Promise.all([
-                        fetch(API_ENDPOINTS.dawn).then(res => res.json()),
-                        fetch(API_ENDPOINTS.thenews).then(res => res.json()),
-                        fetch(API_ENDPOINTS.tribune).then(res => res.json())
-                    ]);
-                    
-                    // Reset all articles
-                    allArticles = [];
-                    
-                    // Process Dawn articles
-                    if (dawnResponse.status === 'success') {
-                        dawnResponse.articles.forEach(article => {
-                            article.source = 'dawn';
-                            allArticles.push(article);
-                        });
-                    }
-                    
-                    // Process The News articles
-                    if (thenewsResponse.status === 'success') {
-                        thenewsResponse.articles.forEach(article => {
-                            article.source = 'thenews';
-                            allArticles.push(article);
-                        });
-                    }
-                    
-                    // Process Tribune articles
-                    if (tribuneResponse.status === 'success') {
-                        tribuneResponse.articles.forEach(article => {
-                            article.source = 'tribune';
-                            allArticles.push(article);
-                        });
-                    }
-                    
-                    // Sort all articles by date (newest first)
-                    allArticles.sort((a, b) => {
-                        return new Date(b.published_date) - new Date(a.published_date);
-                    });
-                }
-                
-                filterAndDisplayArticles();
-                
-            } catch (error) {
-                console.error('Error fetching news:', error);
-                showError('Failed to load news. Please try again later.');
-            } finally {
-                loadingSpinner.style.display = 'none';
-                if (currentFilter === 'refresh') {
-                    currentFilter = 'all';
-                }
-            }
-        }
-        
-        // Filter articles based on current filter and display them
-        function filterAndDisplayArticles() {
-            try {
-                updateSectionTitle();
-                
-                let filteredArticles = allArticles;
-                if (currentFilter === 'dawn') {
-                    filteredArticles = allArticles.filter(article => article.source === 'dawn');
-                } else if (currentFilter === 'thenews') {
-                    filteredArticles = allArticles.filter(article => article.source === 'thenews');
-                } else if (currentFilter === 'tribune') {
-                    filteredArticles = allArticles.filter(article => article.source === 'tribune');
-                }
-                
-                newsContainer.innerHTML = '';
-                
-                if (filteredArticles.length > 0) {
-                    filteredArticles.forEach(article => {
-                        try {
-                            if (article.source === 'dawn') {
-                                addNewsArticle(article, 'Dawn', 'source-dawn');
-                            } else if (article.source === 'thenews') {
-                                addNewsArticle(article, 'The News', 'source-thenews');
-                            } else if (article.source === 'tribune') {
-                                addNewsArticle(article, 'Tribune', 'source-tribune');
-                            }
-                        } catch (error) {
-                            console.error('Error rendering article:', error);
-                        }
-                    });
-                } else {
-                    showError('No news articles found for this source.');
-                }
-                
-            } catch (error) {
-                console.error('Error filtering articles:', error);
-                showError('Error displaying news. Please try again.');
-            }
-        }
-        
-        // Update section title based on current filter
-        function updateSectionTitle() {
-            if (currentFilter === 'all') {
-                sectionTitle.textContent = 'Top Stories';
-            } else if (currentFilter === 'dawn') {
-                sectionTitle.textContent = 'Dawn News';
-            } else if (currentFilter === 'thenews') {
-                sectionTitle.textContent = 'The News International';
-            } else if (currentFilter === 'tribune') {
-                sectionTitle.textContent = 'Tribune News';
-            }
-        }
-        
-        // Show error message
-        function showError(message) {
-            newsContainer.innerHTML = `
-                <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 20px;">
-                    <p>${message}</p>
-                </div>
-            `;
-        }
-        
-        // Add a news article to the DOM
-        function addNewsArticle(article, source, sourceClass) {
-            if (!article || !article.title) {
-                console.warn('Skipping invalid article:', article);
-                return;
-            }
-            
-            const articleElement = document.createElement('article');
-            articleElement.className = 'news-article';
-            
-            try {
-                let date = article.published_date || 'Date not available';
-                let description = article.summary || article.content || 'No description available';
-                if (description.length > 150) {
-                    description = description.substring(0, 150) + '...';
-                }
-                
-                articleElement.innerHTML = `
-                    <div class="article-content">
-                        <span class="source-label ${sourceClass}">${source}</span>
-                        <h3 class="news-heading">${article.title}</h3>
-                        <p class="news-summary">${description}</p>
-                        <div class="article-footer">
-                            <span class="publish-date">${date}</span>
-                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                `;
-                
-                articleElement.addEventListener('click', () => handleArticleClick(article));
-                
-                const readMoreLink = articleElement.querySelector('.read-more');
-                readMoreLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleArticleClick(article);
-                });
-                
-                newsContainer.appendChild(articleElement);
-            } catch (error) {
-                console.error('Error creating article element:', error);
-                articleElement.innerHTML = `
-                    <div class="article-content">
-                        <span class="source-label ${sourceClass}">${source}</span>
-                        <h3 class="news-heading">${article.title || 'News Article'}</h3>
-                        <p class="news-summary">Click to read more about this story</p>
-                        <div class="article-footer">
-                            <span class="publish-date">Today</span>
-                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                `;
-                articleElement.addEventListener('click', () => handleArticleClick(article));
-                newsContainer.appendChild(articleElement);
-            }
-        }
-        
-        // Event Listeners
-        refreshBtn.addEventListener('click', () => {
-            currentFilter = 'refresh';
-            fetchAllNews();
-        });
-        
-        exploreBtn.addEventListener('click', () => {
-            currentFilter = 'all';
-            fetchAllNews();
-        });
-        
-        homeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'all';
-            fetchAllNews();
-        });
-        
-        dawnLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'dawn';
-            fetchAllNews();
-        });
-        
-        thenewsLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'thenews';
-            fetchAllNews();
-        });
-        
-        tribuneLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'tribune';
-            fetchAllNews();
-        });
-        
-        // Footer link events
-        footerHomeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'all';
-            fetchAllNews();
-        });
-        
-        footerDawnLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'dawn';
-            fetchAllNews();
-        });
-        
-        footerThenewsLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'thenews';
-            fetchAllNews();
-        });
-        
-        footerTribuneLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentFilter = 'tribune';
-            fetchAllNews();
-        });
-        
-        // Load news when page loads
-        document.addEventListener('DOMContentLoaded', fetchAllNews);</script>
-</body>
+
+    <script src="./assets/javascript/indexHTML.js"></script>
+  </body>
 </html>
