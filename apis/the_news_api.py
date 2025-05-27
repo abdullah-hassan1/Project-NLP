@@ -116,17 +116,6 @@ def get_latest_thenews_articles():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-# @app.route('/api/thenews/article', methods=['GET'])
-# def get_thenews_article_by_url():
-#     url = request.args.get('url')
-#     if not url:
-#         return jsonify({'status': 'error', 'message': 'URL parameter is required'}), 400
-
-#     try:
-#         article = scrape_thenews_article(url)
-#         return jsonify({'status': 'success', 'article': article})
-#     except Exception as e:
-#         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 # ---------------------- MAIN ----------------------
 

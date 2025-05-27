@@ -101,18 +101,6 @@ def get_latest_dawn_articles():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-# @app.route('/api/dawn/article', methods=['GET'])
-# def get_dawn_article_by_url():
-#     url = request.args.get('url')
-#     if not url:
-#         return jsonify({'status': 'error', 'message': 'URL parameter is required'}), 400
-
-#     try:
-#         article = scrape_dawn_article(url)
-#         return jsonify({'status': 'success', 'article': article})
-#     except Exception as e:
-#         return jsonify({'status': 'error', 'message': str(e)}), 500
-
 # ---------------------- MAIN ----------------------
 
 if __name__ == '__main__':

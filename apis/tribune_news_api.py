@@ -151,17 +151,6 @@ def get_latest_tribune_articles():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-# @app.route('/api/tribune/article', methods=['GET'])
-# def get_tribune_article_by_url():
-#     url = request.args.get('url')
-#     if not url:
-#         return jsonify({'status': 'error', 'message': 'URL parameter is required'}), 400
-
-#     try:
-#         article = scrape_tribune_article(url)
-#         return jsonify({'status': 'success', 'article': article})
-#     except Exception as e:
-#         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 # ---------------------- MAIN ----------------------
 
