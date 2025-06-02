@@ -4,8 +4,7 @@ import numpy as np
 from nltk.cluster.util import cosine_distance
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-# nltk.download('punkt')
-# nltk.download('stopwords')
+
 nltk.download('all')
 stopwords = nltk.corpus.stopwords.words('english')
 
