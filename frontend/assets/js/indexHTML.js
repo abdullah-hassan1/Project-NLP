@@ -12,17 +12,7 @@ const exploreBtn = document.getElementById("exploreBtn");
 const loadingSpinner = document.getElementById("loadingSpinner");
 const sectionTitle = document.getElementById("sectionTitle");
 
-// Navigation links
-const homeLink = document.getElementById("homeLink");
-const dawnLink = document.getElementById("dawnLink");
-const tribuneLink = document.getElementById("tribuneLink");
-const thenewsLink = document.getElementById("thenewsLink");
 
-// Footer links
-const footerHomeLink = document.getElementById("footerHomeLink");
-const footerDawnLink = document.getElementById("footerDawnLink");
-const footerTribuneLink = document.getElementById("footerTribuneLink");
-const footerThenewsLink = document.getElementById("footerThenewsLink");
 
 // Current state
 let currentFilter = "all";
@@ -75,10 +65,6 @@ async function fetchAllNews() {
         });
       }
 
-      // Sort all articles by date (newest first)
-      allArticles.sort((a, b) => {
-        return new Date(b.published_date) - new Date(a.published_date);
-      });
     }
 
     filterAndDisplayArticles();
@@ -170,7 +156,7 @@ function addNewsArticle(article, source, sourceClass) {
   const articleElement = document.createElement("article");
   articleElement.className = "news-article";
 
-  try {
+
     let date = article.published_date || "Date not available";
     let description =
       article.summary || article.content || "No description available";
@@ -200,25 +186,8 @@ function addNewsArticle(article, source, sourceClass) {
     });
 
     newsContainer.appendChild(articleElement);
-  } catch (error) {
-    console.error("Error creating article element:", error);
-    articleElement.innerHTML = `
-                    <div class="article-content">
-                        <span class="source-label ${sourceClass}">${source}</span>
-                        <h3 class="news-heading">${
-                          article.title || "News Article"
-                        }</h3>
-                        <p class="news-summary">Click to read more about this story</p>
-                        <div class="article-footer">
-                            <span class="publish-date">Today</span>
-                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                `;
-    articleElement.addEventListener("click", () => handleArticleClick(article));
-    newsContainer.appendChild(articleElement);
   }
-}
+
 
 // Event Listeners
 refreshBtn.addEventListener("click", () => {
